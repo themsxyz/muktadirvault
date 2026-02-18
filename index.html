@@ -1,68 +1,213 @@
-<!DOCTYPE html><html><head><meta charset="UTF-8"><meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=yes"name=viewport><title>Muktadir's Vault ▣</title>
-<!-- M I N I F I E D  C S S  –  H A R D  R E A D  –  HACKING CARDS -->
-<style>
-*{box-sizing:border-box;margin:0;padding:0}body{background:#0a0c0a;color:#0f0;font-family:'Courier New',Courier,monospace;font-size:15px;line-height:1.5;padding:15px;min-height:100vh;display:flex;justify-content:center;align-items:center}.c{max-width:1240px;width:100%;margin:0 auto;border:1.4px solid #0f0;padding:25px 22px;box-shadow:0 0 24px #0f08;background:#020902;border-radius:2px}.l h1,.d h2{border-bottom:1px solid #0f0;padding-bottom:10px;margin-bottom:22px;font-weight:400;letter-spacing:4px;word-break:break-word;text-shadow:0 0 6px #0f0}.i{width:100%;background:#0a100a;border:1.2px solid #0f0;color:#0f0;padding:12px 16px;margin-bottom:12px;font-family:inherit;font-size:14px;outline:0;box-shadow:inset 0 0 7px #0f01;-webkit-appearance:none;appearance:none;border-radius:0}.i:focus{border-color:#4f4;background:#020a02;box-shadow:0 0 12px #0f0}input[type=date]::-webkit-calendar-picker-indicator{filter:invert(1);opacity:.9;cursor:pointer}.b{background:#0f0;color:#030a03;border:0;padding:12px 22px;font-weight:800;font-size:18px;letter-spacing:4px;cursor:pointer;width:100%;text-transform:uppercase;transition:.2s;font-family:inherit;margin-top:9px;border-radius:0}.b:hover{background:#5f5;box-shadow:0 0 18px #0f0;color:#000}.b:disabled{opacity:.3;cursor:not-allowed;box-shadow:none;background:#3a4a3a;color:#aaa;border:1px solid #595}.d{margin-top:25px;word-wrap:break-word}.msg{color:#f66;background:#1c0000;border:1px solid #f44;padding:10px;margin:18px 0 6px;font-size:14px;text-align:center;letter-spacing:2px}.block{color:#fe0;background:#252000;border-color:#fd0}.v-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;margin-top:20px}.v-card{background:#0b120b;border:1.5px solid #0f0;padding:20px 18px;box-shadow:0 0 16px #0f03;position:relative;transition:.15s}.v-card:hover{border-color:#6f6;box-shadow:0 0 22px #0f0c}.v-card h3{color:#9f9;font-size:17px;letter-spacing:3px;margin-bottom:18px;border-left:5px solid #0f0;padding-left:12px;text-transform:uppercase;word-break:break-word}.v-field{display:flex;flex-direction:column;margin-bottom:8px;border-bottom:1px dashed #3a6a3a;padding-bottom:6px}.v-field .tag{color:#afa;font-size:11px;letter-spacing:2px;margin-bottom:3px;opacity:.9}.v-field .val{color:#0f0;font-size:14px;word-break:break-all;font-weight:500;background:#031003;padding:5px 10px;border-left:3px solid #0f0;font-family:monospace}.row-2{display:grid;grid-template-columns:1fr 1fr;gap:10px}.mt-3{margin-top:18px}.pin{background:#0f0010;padding:3px 8px;border:1px dotted #6f6;display:inline-block;font-size:12px}.glitch{text-shadow:0 0 5px #0f0}.cursor:after{content:"_";opacity:1;animation:blink 1s infinite}@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}@media(max-width:650px){.v-grid{grid-template-columns:1fr}}
-</style>
-</head><body><div class="c">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MSVAULT · terminal</title>
+  <style>
+    /* ----- styles untouched (original) ----- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Courier New', Courier, monospace;
+    }
+    body {
+      background-color: black;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .danger-glow {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 40vw;
+      color: red;
+      opacity: 0.12;
+      text-shadow: 0 0 40px red, 0 0 80px #ff0000;
+      pointer-events: none;
+      user-select: none;
+      z-index: 0;
+      white-space: nowrap;
+      animation: pulse 3s infinite ease-in-out;
+    }
+    @keyframes pulse {
+      0% { opacity: 0.1; text-shadow: 0 0 30px red; }
+      50% { opacity: 0.18; text-shadow: 0 0 70px red, 0 0 110px #ff4444; }
+      100% { opacity: 0.1; text-shadow: 0 0 30px red; }
+    }
+    .content {
+      position: relative;
+      z-index: 10;
+      width: 90%;
+      max-width: 700px;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
+    }
+    .card {
+      background: rgba(10, 0, 0, 0.6);
+      backdrop-filter: blur(2px);
+      border: 1px solid #330000;
+      border-radius: 16px;
+      padding: 2rem;
+      width: 100%;
+      box-shadow: 0 0 30px rgba(255, 0, 0, 0.2);
+    }
+    .input-group {
+      display: flex;
+      gap: 0.5rem;
+      width: 100%;
+    }
+    input {
+      flex: 1;
+      background: black;
+      border: 1px solid #660000;
+      padding: 0.9rem 1.2rem;
+      font-size: 1.2rem;
+      color: #ff4444;
+      border-radius: 40px;
+      outline: none;
+      caret-color: red;
+      font-family: 'Courier New', monospace;
+    }
+    input::placeholder {
+      color: #330000;
+      font-style: italic;
+    }
+    input:focus {
+      border-color: red;
+      box-shadow: 0 0 15px red;
+    }
+    button {
+      background: #1a0000;
+      border: 1px solid red;
+      color: #ff8888;
+      padding: 0.9rem 2rem;
+      font-size: 1.2rem;
+      border-radius: 40px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.2s;
+      font-family: 'Courier New', monospace;
+      letter-spacing: 1px;
+    }
+    button:hover {
+      background: red;
+      color: black;
+      box-shadow: 0 0 20px red;
+      border-color: black;
+    }
+    .hidden {
+      display: none !important;
+    }
+    .homepage {
+      background: rgba(0, 10, 0, 0.7);
+      backdrop-filter: blur(3px);
+      border: 2px solid #00aa00;
+      border-radius: 24px;
+      padding: 2rem;
+      width: 100%;
+      color: #00dd00;
+      text-shadow: 0 0 8px #00ff00;
+      box-shadow: 0 0 50px #00aa00;
+      font-size: 1.1rem;
+      line-height: 1.6;
+    }
+    .homepage pre {
+      font-family: 'Courier New', monospace;
+      color: #00ff00;
+      background: transparent;
+      border: none;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+    .glitch {
+      animation: glitch 2s infinite;
+    }
+    @keyframes glitch {
+      0%, 100% { text-shadow: 0 0 5px #0f0; }
+      33% { text-shadow: -2px 0 red, 0 0 10px #0f0; }
+      66% { text-shadow: 2px 0 blue, 0 0 8px #0f0; }
+    }
+    .homepage hr {
+      border: 1px solid #006600;
+      margin: 1.5rem 0;
+    }
+    .data-line {
+      display: flex;
+      gap: 1rem;
+      border-bottom: 1px dashed #006600;
+      padding: 0.5rem 0;
+    }
+    .prompt {
+      color: #00aa00;
+      font-weight: bold;
+    }
+    @media (max-width: 500px) {
+      .input-group {
+        flex-direction: column;
+      }
+      button {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- biohazard symbol (unchanged) -->
+  <div class="danger-glow">☣</div>
 
-<!-- L O G I N   P A N E L  –  CALENDAR BIRTHDAY -->
-<div id="L">
- <div class="l" id="loginPanel">
-  <h1>⤷ Welcome to ULTAFS2.o</h1>
-  <input type="email" id="a1" placeholder="EMAIL" class="i" autocomplete="off" spellcheck="false">
-  <input type="text" id="a2" placeholder="PHONE" class="i" maxlength="4" autocomplete="off">
-  <input type="text" id="a3" placeholder="VERIFICATION CODE" class="i" maxlength="5" autocomplete="off">
-  <input type="password" id="a4" placeholder="PASSWORD" class="i" autocomplete="off">
-  <input type="date" id="a5" class="i" required>
-  <button id="sub" class="b">⏎  ENTER</button>
-  <div id="msgBox" class="msg"></div>
- </div>
-</div>
+  <div class="content">
+    <!-- SEARCH SECTION (ids unchanged, but script uses encoded references) -->
+    <div id="searchSection" class="card">
+      <div class="input-group">
+        <input type="text" id="searchInput" placeholder="search... (e.g. @msvault)" autofocus>
+        <button id="searchBtn">SEARCH</button>
+      </div>
+      <p style="color: #440000; margin-top: 1rem; font-size: 0.9rem; text-align: center;">> access restricted to authorized personnel</p>
+    </div>
 
-<!-- D A S H B O A R D –  H A C K I N G   S O C I A L   V A U L T  –  ALL FIELDS -->
-<div id="D" style="display:none;" class="d">
- <h2>⤷  //  ROOT: ULTAFS2.0  VAULT // Account Details [ENCRYPTED]</h2>
- <div class="v-grid" id="vault">
-   
-  <!-- CARD 1 – FACEBOOK -->
-  <div class="v-card">
-   <h3>⌾ FACEBOOK █</h3>
-   <div class="v-field"><span class="tag">EMAIL</span><span class="val">muktadirsabab21@gmail.com</span></div>
-   <div class="v-field"><span class="tag">PASSWORD</span><span class="val">(5202$$@#3202🐝😞🐝😞🐍🦄🐀🎏)</span></div>
-  </div>
-  
-  <!-- CARD 2 – TWITTER / X -->
-  <div class="v-card">
-   <h3>⌾ themsxyz@gmail.com █</h3>
-   <div class="v-field"><span class="tag">EMAIL</span><span class="val">themsxyz@gmail.com</span></div>
-   <div class="v-field"><span class="tag">PASSWORD</span><span class="val">(5202@🦓🦬🦑🦂🐭🦅🐎✂️)</span></div>
-   <div class="v-field"><span class="tag">Birthday</span><span class="val">3 july 2000</span></div>
-  </div>
-  
-  <!-- CARD 3 – INSTAGRAM -->
-  <div class="v-card">
-   <h3>⌾ shababmuktadir@gmail.com █</h3>
-   <div class="v-field"><span class="tag">EMAIL</span><span class="val"> shababmuktadir@gmail.com</span></div>
-   <div class="v-field"><span class="tag">PASSWORD</span><span class="val">(2025@🐀🦎🐬😞🐯🦘🦄🐭😎😞🐝🐎🐍)</span></div>
-   <div class="row-2"><div class="v-field"><span class="tag">PHONE</span><span class="val">01632426210</span></div></div>
-  </div>
-  
-  <!-- CARD demo – ADDITIONAL: LINKEDIN / ETC -->
-  <div class="v-card">
-   <h3>⌾ LINKEDIN █</h3>
-   <div class="v-field"><span class="tag">EMAIL</span><span class="val">muktadir.work@protonmail.com</span></div>
-   <div class="row-2"><div class="v-field"><span class="tag">NAME</span><span class="val">Muktadir Shabab</span></div><div class="v-field"><span class="tag">USERNAME</span><span class="val">muktadir-linked</span></div></div>
-   <div class="v-field"><span class="tag">PASSWORD</span><span class="val">F@rabi016324</span></div>
-   <div class="row-2"><div class="v-field"><span class="tag">PHONE</span><span class="val">+1 (621) 016-3242</span></div><div class="v-field"><span class="tag">BACKUP CODE</span><span class="val">6210-LI-77</span></div></div>
-   <div class="row-2"><div class="v-field"><span class="tag">RECOVERY EMAIL</span><span class="val">rec.work@pm.me</span></div><div class="v-field"><span class="tag">RECOVERY #</span><span class="val">+49 162 3246210</span></div></div>
-   <div class="v-field"><span class="tag">SCREEN LOCK</span><span class="val">PIN: 19845#</span></div>
-   <div class="pin glitch">[2FA: OK]</div>
-  </div>
-  
- </div>
- <button id="lgout" class="b" style="margin-top:42px;">⟲  LOCK </button>
-</div>
+    <!-- CODE SECTION -->
+    <div id="codeSection" class="card hidden">
+      <div class="input-group">
+        <input type="password" id="codeInput" placeholder="enter 6-digit code">
+        <button id="codeBtn">UNLOCK</button>
+      </div>
+      <p style="color: #440000; margin-top: 1rem; font-size: 0.9rem;">> vault authentication required</p>
+    </div>
 
-</div><!-- .c -->
- <script src="script.js"></script>
-</body></html>
+    <!-- HOMEPAGE (secret content) -->
+    <div id="homepageSection" class="homepage hidden">
+      <pre>
+> ACCESS GRANTED  —  MSVAULT // ROOT
+====================================
+      </pre>
+      <div class="data-line"><span class="prompt">$</span> SYSTEM:   SECURE NODE [ACTIVE]</div>
+      <div class="data-line"><span class="prompt">$</span> IP:       10.88.44.197 (TOR EXIT)</div>
+      <div class="data-line"><span class="prompt">$</span> UPTIME:   97d 14h 22m</div>
+      <div class="data-line"><span class="prompt">$</span> ENCRYPT:  AES-256-GCM | RSA-4096</div>
+      <div class="data-line"><span class="prompt">$</span> SESSIONS: 4 active tunnels</div>
+      <div class="data-line"><span class="prompt">$</span> LOGS:     last entry 2025-02-17 / 03:41:22</div>
+      <div class="data-line"><span class="prompt">$</span> ALERTS:   IDS // 2 low, 0 critical</div>
+      <hr>
+      <pre style="font-size: 0.9rem; color: #88ff88;">
+  ╔══════════════════════════════════╗
+  ║  [VAULT] 198451 – unlocked       ║
+  ║  > payloads: ready                ║
+  ║  > backdoor: 192.168.12.4:8080    ║
+  ╚══════════════════════════════════╝
+      </pre>
+      <p class="glitch" style="text-align: right; margin-top: 1.5rem;">> root@msvault # _</p>
+    </div>
+  </div>
+</body>
+</html>
