@@ -1,2 +1,72 @@
+(function(){
+  var _0 = {
+    s: document.getElementById('searchSection'),
+    c: document.getElementById('codeSection'),
+    h: document.getElementById('homepageSection'),
+    i: document.getElementById('searchInput'),
+    b: document.getElementById('searchBtn'),
+    p: document.getElementById('codeInput'),
+    k: document.getElementById('codeBtn')
+  };
 
-const _=d=>d,$L=localStorage,$D=document,$A=atob,$B='bXVrdGFkaXJzaGFiYWJAZ21haWwuY29t',$C='NjIxMA==',$E='MTk4NDU=',$F='RmFyYWJpMDE2MzI0MjYyMTBA',$G='MjAwNS0wNy0wMw==',$H='YXR0ZW1wdHM=',$I='YmxvY2tVbnRpbA==',$J=2592000000,$K=e=>$D.getElementById(e),$L2=$A('bG9naW5QYW5lbA=='),$M=$A('ZGFzaGJvYXJk'),$N=$A('c3Vi'),$O=$A('bXNnQm94'),$P=$A('YWEx'),$Q=$A('YWEy'),$R=$A('YWEz'),$S=$A('YWE0'),$T=$A('YWE1'),$U=$A('bGdvdXQ='),$V=$K('loginPanel'),$W=$K('D'),$X=$K('sub'),$Y=$K('msgBox'),$Z=$K('lgout'),$aa=$K('a1'),$ab=$K('a2'),$ac=$K('a3'),$ad=$K('a4'),$ae=$K('a5'),$af=$A($B),$ag=$A($C),$ah=$A($E),$ai=$A($F),$aj=$A($G),$ak=$L.getItem($A($H)),$al=$L.getItem($A($I)),$am=Date.now();($al&&$am>Number($al))&&($L.removeItem($A($H)),$L.removeItem($A($I)),$ak=null,$al=null);(function(){if($al&&$am<Number($al)){let$an=new Date(Number($al));$Y.innerText='⛔ BLOCKED UNTIL: '+$an.toLocaleString();$Y.classList.add('block');$X.disabled=!0;[$aa,$ab,$ac,$ad,$ae].forEach($ao=>$ao.disabled=!0);return!0}return!1})()&&($V.style.opacity='.75');let $ap=Number($L.getItem($A($H)))||0;function $aq(){let $ar=$aa.value.trim(),$as=$ab.value.trim(),$at=$ac.value.trim(),$au=$ad.value.trim(),$av=$ae.value;return($ar==$af&&$as==$ag&&$at==$ah&&$au==$ai&&$av==$aj)}function $aw(){$ap=Number($L.getItem($A($H)))||0;$ap++;$L.setItem($A($H),$ap);if($ap>=3){let$ax=$am+$J;$L.setItem($A($I),$ax);$Y.innerText='❆ BLOCKED 1 MONTH (3/3)';$Y.classList.add('block');$X.disabled=!0;[$aa,$ab,$ac,$ad,$ae].forEach($ay=>$ay.disabled=!0)}else{$Y.innerText='❌ DENIED · '+(3-$ap)+' LEFT';$Y.classList.remove('block')}}function $az(){$L.removeItem($A($H));$L.removeItem($A($I));$ap=0;$Y.innerText='';$X.disabled=!1;[$aa,$ab,$ac,$ad,$ae].forEach($aA=>$aA.disabled=!1);$Y.classList.remove('block')}function $aB(){$W.style.display='block';$V.style.display='none';$Y.innerText='';$az()}$X.addEventListener('click',$aC=$aD=>{$aD.preventDefault();if($L.getItem($A($I))&&Date.now()<Number($L.getItem($A($I)))){$Y.innerText='⚡ BLOCK ACTIVE';return}if($aq()){$aB();$L.removeItem($A($H));$L.removeItem($A($I));$ap=0}else{$aw();if($ap>=3){let$aE=$L.getItem($A($I));if($aE){$Y.innerText='🔒 LOCKED: '+new Date(Number($aE)).toLocaleString();$Y.classList.add('block')}}}});$Z.addEventListener('click',()=>{$az();$W.style.display='none';$V.style.display='block';[$aa,$ab,$ac,$ad,$ae].forEach($aF=>$aF.value='');$ae.value='';$Y.innerText='';$Y.classList.remove('block')});[$aa,$ab,$ac,$ad,$ae].forEach($aG=>$aG.addEventListener('keydown',$aH=>{$aH.key==='Enter'&&$X.click()}));(function(){let$aI=$L.getItem($A($I));if($aI&&Date.now()>Number($aI)){$L.removeItem($A($H));$L.removeItem($A($I));}})();window.onload=function(){if($L.getItem($A($I))&&Date.now()<Number($L.getItem($A($I)))){let$aJ=new Date(Number($L.getItem($A($I))));$Y.innerText='☢ BLOCK: '+$aJ.toLocaleString();$Y.classList.add('block');$X.disabled=!0;[$aa,$ab,$ac,$ad,$ae].forEach($aK=>$aK.disabled=!0)}else{$X.disabled=!1;[$aa,$ab,$ac,$ad,$ae].forEach($aL=>$aL.disabled=!1);$L.removeItem($A($H))}};
+  var _user = '@msvault';
+  var _code = '198451';
+
+  function _1(_2) {
+    _0.s.classList.add('hidden');
+    _0.c.classList.add('hidden');
+    _0.h.classList.add('hidden');
+    
+    if(_2 === 's') {
+      _0.s.classList.remove('hidden');
+      _0.i.focus();
+    } else if(_2 === 'c') {
+      _0.c.classList.remove('hidden');
+      _0.p.focus();
+    } else if(_2 === 'h') {
+      _0.h.classList.remove('hidden');
+    }
+  }
+
+  function _3() {
+    var _4 = _0.i.value.trim();
+    if(_4 === _user) {
+      _1('c');
+      _0.i.value = '';
+    } else {
+      alert('⛔ invalid search term.\nHint: try @msvault');
+    }
+  }
+
+  function _5() {
+    var _6 = _0.p.value.trim();
+    if(_6 === _code) {
+      _1('h');
+    } else {
+      alert('❌ access denied — wrong code');
+      _0.p.value = '';
+      _0.p.focus();
+    }
+  }
+
+  _0.i.addEventListener('keypress', function(e) {
+    if(e.key === 'Enter') {
+      e.preventDefault();
+      _3();
+    }
+  });
+
+  _0.p.addEventListener('keypress', function(e) {
+    if(e.key === 'Enter') {
+      e.preventDefault();
+      _5();
+    }
+  });
+
+  _0.b.addEventListener('click', _3);
+  _0.k.addEventListener('click', _5);
+
+  window.addEventListener('load', function() {
+    _0.i.focus();
+  });
+})();
